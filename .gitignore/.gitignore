@@ -1,0 +1,89 @@
+#include <cstdio>
+#include <iostream>
+#include <string>
+#include <cstring>
+using namespace std;
+int main()
+{
+    int mode[3]={0};
+    int i,j=0,aim,l,w,line;
+    char in[100],source[1000];
+    string input;
+    char path[100];
+    int sfind(string a);
+    int w_c(char a[]);
+    int l_c(char a[]);
+
+    gets(in);
+    input=in;
+    l=input.length();
+    //cout<<l<<endl;
+    if(input.find("-c")<100) mode[0]++;
+    if(input.find("-w")<100) mode[1]++;
+    if(input.find("-l")<100) mode[2]++;
+    aim=sfind(input);
+    //cout<<"aim"<<aim<<endl;
+    j=0;
+    for(i=aim+1;i<l;i++)
+    {
+        path[j]=input[i];
+        //cout<<path[i]<<endl;
+        //printf("%c",path[j]);
+        j++;
+    }
+
+    freopen(path,"r",stdin);
+    gets(source);
+    l=strlen(source);
+    if(mode[0])
+	{
+	    printf("共有%d个字符\n",l);
+	}
+    if(mode[1])
+    {
+        w=w_c(source);
+        printf("共有%d个单词\n",w);
+    }
+    if(mode[2])
+    {
+        line=l_c(source);
+        printf("共有%d个句子\n",line);
+    }
+    //cout<<path<<endl;
+    /*
+    cin>>source;
+    */
+}
+int sfind(string a)
+{
+    int i,l;
+    l=a.length();
+    for (i=l-1;i>=0;i--)
+    {
+        if(a[i]==' ') return i;
+    }
+}
+int w_c(char a[])
+{
+    int i,l,w=0;
+    l=strlen(a);
+    for (i=0;i<l;i++)
+    {
+        if(isalpha(a[i])&&a[i+1]==' ') w++;
+    }
+    return w;
+}
+int l_c(char a[])
+{
+    int i,j,l,c=0;
+    char aim[4]={'?','.','!'};
+    l=strlen(a);
+    for (i=0;i<l;i++)
+    {
+        for(j=0;j<3;j++)
+        {
+            if(a[i]==aim[j]) c++;
+        }
+    }
+    return c;
+}
